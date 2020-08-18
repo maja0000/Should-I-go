@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
-import EventCard from './components/EventCard';
-import Column from './components/Column';
+
 import './App.css';
-import initialData from './components/initial-data';
+// import initialData from './components/initial-data';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import uuid from 'uuid/v4';
+import useEvents from './components/getEvents';
+
 const itemsFromBackend = [
-  { id: uuid(), content: 'First task' },
-  { id: uuid(), content: 'Second task' },
-  { id: uuid(), content: 'Third task' },
-  { id: uuid(), content: 'Fourth task' },
-  { id: uuid(), content: 'Fifth task' },
+  {
+    id: uuid(),
+    content: 'Casting Crowns (Drive In Concert Experience)',
+    type: 'music festival',
+    date: '2020-08-18',
+  },
+  {
+    id: uuid(),
+    content: 'The Killers with Johnny Marr',
+    type: 'concert',
+    date: '2020-09-02',
+  },
+  {
+    id: uuid(),
+    content: 'Britains Best - Lancaster',
+    type: 'theater',
+    date: '2020-09-06',
+  },
+  {
+    id: uuid(),
+    content: 'Mac King Comedy Magic Show',
+    type: 'comedy',
+    date: '2020-10-01',
+  },
+  {
+    id: uuid(),
+    content: 'Utah Jazz at Denver Nuggets',
+    type: 'NBA',
+    date: '2020-08-21',
+  },
 ];
 const columnsFromBackend = {
   [uuid()]: {
@@ -69,9 +95,10 @@ const onDragEnd = (result, columns, setColumns) => {
 
 function App() {
   const [columns, setColumns] = useState(columnsFromBackend);
+  // const {events, loading} = useEvents();
   return (
     <>
-      <h1 className="header">my Events</h1>
+      <h1 className="header">Should I go?</h1>
       <div className="App">
         <div className="app-wrapper">
           <div className="columns">
@@ -106,7 +133,7 @@ function App() {
                             >
                               <h1
                                 style={{
-                                  marginBottom: '10px',
+                                  margin: '4px',
                                   color: 'red',
                                   fontSize: '2.5em',
                                 }}
@@ -133,9 +160,8 @@ function App() {
                                             margin: '5px',
                                             border: '3px dotted black',
                                             borderRadius: '20px',
-
                                             userSelect: 'none',
-                                            padding: 16,
+                                            padding: '10px',
                                             margin: '0 0 8px 0',
                                             color: snapshot.isDragging
                                               ? 'red'
@@ -144,7 +170,25 @@ function App() {
                                             ...provided.draggableProps.style,
                                           }}
                                         >
-                                          {item.content}
+                                          <div
+                                            style={{
+                                              display: 'flex',
+                                              flexDirection: 'column',
+                                              fontSize: '10px',
+                                            }}
+                                          >
+                                            <strong
+                                              style={{
+                                                fontSize: '15px',
+                                              }}
+                                            >
+                                              {' '}
+                                              {item.content}
+                                            </strong>{' '}
+                                            ({item.type})
+                                            <br />
+                                            {item.date}
+                                          </div>
                                         </div>
                                       );
                                     }}
