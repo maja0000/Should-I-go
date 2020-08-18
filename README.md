@@ -1,4 +1,4 @@
 Work in progress
 
 
-![](pics/desktop.png)
+![](src/pics/desktop.png)
